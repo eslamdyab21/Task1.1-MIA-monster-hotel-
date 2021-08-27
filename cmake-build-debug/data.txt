@@ -1,0 +1,10 @@
+1,eslam
+reserved_rooms: 4
+nights number: 3
+total cost: 4070
+=======================================
+1,jack
+reserved_rooms: 5
+nights number: 3
+total cost: 4670
+=======================================
