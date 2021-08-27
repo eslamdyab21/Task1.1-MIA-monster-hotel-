@@ -151,27 +151,28 @@ int reservation(string monster_or_human, int id, string name,int guest_num,int i
     }
 
     //create a file to store data
-    fstream myfile;
-    if(i == 0){
-        myfile.open("data.txt",ios::out);
-        myfile << "id: "<< id<< "\n";
-        myfile << "name: "<< name<< "\n";
-        myfile <<"reserved_rooms: " << hotel.reserved_rooms<< "\n";
-        myfile <<"nights number: " << hotel.night_num<< "\n";
-        myfile <<"total cost: " << hotel.total_cost<< "\n";
-        myfile <<"======================================="<< "\n";
-        myfile.close();
+    if(ans == "no"){
+        fstream myfile;
+        if(i == 0){
+            myfile.open("data.txt",ios::out);
+            myfile << "id: "<< id<< "\n";
+            myfile << "name: "<< name<< "\n";
+            myfile <<"reserved_rooms: " << hotel.reserved_rooms<< "\n";
+            myfile <<"nights number: " << hotel.night_num<< "\n";
+            myfile <<"total cost: " << hotel.total_cost<< "\n";
+            myfile <<"======================================="<< "\n";
+            myfile.close();
+        }
+        else{
+            myfile.open("data.txt",ios::app);
+            myfile << id<< "," + name +"\n";
+            myfile <<"reserved_rooms: " << hotel.reserved_rooms<< "\n";
+            myfile <<"nights number: " << hotel.night_num<< "\n";
+            myfile <<"total cost: " << hotel.total_cost<< "\n";
+            myfile <<"======================================="<< "\n";
+            myfile.close();
+        }
     }
-    else{
-        myfile.open("data.txt",ios::app);
-        myfile << id<< "," + name +"\n";
-        myfile <<"reserved_rooms: " << hotel.reserved_rooms<< "\n";
-        myfile <<"nights number: " << hotel.night_num<< "\n";
-        myfile <<"total cost: " << hotel.total_cost<< "\n";
-        myfile <<"======================================="<< "\n";
-        myfile.close();
-    }
-
 
     return avalible_rooms;
 
