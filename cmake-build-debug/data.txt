@@ -1,10 +1,45 @@
-1,eslam
-reserved_rooms: 4
+class: human
+id: 1
+name: jack
+reserved_rooms: 2
 nights number: 3
-total cost: 4070
+total cost: 3000
+number of occupied rooms: 2
+number of available rooms: 3
 =======================================
-1,jack
+class: human
+id: 2
+name: pet
+reserved_rooms: 3
+nights number: 5
+total cost: 7500
+number of occupied rooms: 5
+number of available rooms: 0
+=======================================
+class: monster
+id: 3
+name: klaus
 reserved_rooms: 5
-nights number: 3
-total cost: 4670
+nights number: 5
+total cost: 5030
+number of occupied rooms: 5
+number of available rooms: 10
+=======================================
+class: monster
+id: 4
+name: marcel
+reserved_rooms: 4
+nights number: 5
+total cost: 4000
+number of occupied rooms: 9
+number of available rooms: 6
+=======================================
+class: 
+id: 3
+name: klaus
+reserved_rooms: 2
+nights number: 7
+total cost: 7000
+number of occupied rooms: 1
+number of available rooms: 4
 =======================================

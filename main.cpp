@@ -60,7 +60,7 @@ public:
     string monster_or_human;
     string name;
     string new_or_old;
-    int id=0;
+    int id;
 
     void ask_new_or_old(){
         cout << "Dear guest, are you a new or old guest? "<< endl;
@@ -74,18 +74,14 @@ public:
 
         cout << "Dear guest, What's your name? "<< endl;
         cin >> name;
-        id = generate_id();
+        //id = generate_id();
     }
 
 
-    int generate_id(){
-        return id + 1;
-    }
-
-
-    void ask_for_id(){
+    int ask_for_id(){
         cout << "Dear guest, What's your id? "<< endl;
         cin >> id;
+        return id;
     }
 
 
@@ -95,113 +91,191 @@ public:
 };
 
 
+//function that creates a file to store data
+void save_to_txt(int i,int id,string name,int reserved_rooms,int night_num,int total_cost,int room_num, int avalible_rooms,string monster_or_human){
+    fstream myfile;
+    if(i == 0){
+        myfile.open("data.txt",ios::out);
+        myfile << "class: "<< monster_or_human<< "\n";
+        myfile << "id: "<< id<< "\n";
+        myfile << "name: "<< name<< "\n";
+        myfile <<"reserved_rooms: " << reserved_rooms<< "\n";
+        myfile <<"nights number: " << night_num<< "\n";
+        myfile <<"total cost: " << total_cost<< "\n";
+        myfile <<"number of occupied rooms: " << room_num - avalible_rooms<< "\n";
+        myfile <<"number of available rooms: " << avalible_rooms<< "\n";
+        myfile <<"======================================="<< "\n";
+        myfile.close();
+    }
+    else{
+        myfile.open("data.txt",ios::app);
+        myfile << "class: "<< monster_or_human<< "\n";
+        myfile << "id: "<< id<< "\n";
+        myfile << "name: "<< name<< "\n";
+        myfile <<"reserved_rooms: " << reserved_rooms<< "\n";
+        myfile <<"nights number: " << night_num<< "\n";
+        myfile <<"total cost: " << total_cost<< "\n";
+        myfile <<"number of occupied rooms: " << room_num - avalible_rooms<< "\n";
+        myfile <<"number of available rooms: " << avalible_rooms<< "\n";
+        myfile <<"======================================="<< "\n";
+        myfile.close();
+    }
+}
 
 
 // function that take care of reservation
-int reservation(string monster_or_human, int id, string name,int guest_num,int i){
-    int avalible_rooms;
+void hum_reservation(int id, string name,int guest_num,int i,int *avalible_rooms,string monster_or_human){
+
     HumanHotel hotel;
 
-    if(monster_or_human =="human") {
-        HumanHotel hotel;
-        avalible_rooms = 5;
-    }
-    else if (monster_or_human =="monster"){
-        MonsterHotel hotel;
-        avalible_rooms = 15;
-    }
-
     // New reservation
-    if (avalible_rooms >0) {
-        hotel.reserved_rooms, hotel.night_num = hotel.ask_num_rooms_and_nights();
-        avalible_rooms = avalible_rooms- hotel.reserved_rooms;
-
+    hotel.reserved_rooms, hotel.night_num = hotel.ask_num_rooms_and_nights();
+    *avalible_rooms = *avalible_rooms - hotel.reserved_rooms;
+    if (*avalible_rooms >=0) {
+        //Extend reservation
+        hotel.extra_nights = hotel.ask_num_extra_nights();
+        hotel.night_num = hotel.night_num + hotel.extra_nights;
         hotel.total_cost = (hotel.reserved_rooms) * (hotel.night_num) * (hotel.night_cost);
+
+        //Additional services
+        string ans;
+        cout << "Do you want Dry cleaning? (yes or no)" << endl;
+        cin >> ans;
+        if(ans == "yes"){
+            hotel.total_cost = hotel.total_cost + hotel.dry_cleaning_cost;
         }
+        cout << "Do you want Spa? (yes or no)" << endl;
+        cin >> ans;
+        if(ans == "yes"){
+            hotel.total_cost = hotel.total_cost + hotel.spa_cost;
+        }
+
+        cout << "Total cost is: " <<hotel.total_cost << endl;
+
+        //Cancel reservation
+        cout << "Do you want to cancel the reservation? (yes or no)" << endl;
+        cin >> ans;
+        if(ans == "yes"){
+            hotel.total_cost = 0;
+            *avalible_rooms = *avalible_rooms + hotel.reserved_rooms;
+            hotel.reserved_rooms = 0;
+            hotel.night_num = 0;
+        }
+
+        //create a file to store data
+        save_to_txt(i,id,name,hotel.reserved_rooms,hotel.night_num,hotel.total_cost,hotel.room_num,*avalible_rooms,monster_or_human);
+    }
 
     else{
-        cout << "Sorry no rooms avalible" << endl;
+        cout << "Sorry no human rooms avalible" << endl;
     }
 
-    //Extend reservation
-    hotel.extra_nights = hotel.ask_num_extra_nights();
-    hotel.reserved_rooms = hotel.reserved_rooms + hotel.extra_nights;
-    hotel.total_cost = hotel.total_cost + (hotel.extra_nights)*(hotel.night_cost);
 
-    //Additional services
-    string ans;
-    cout << "Do you want Dry cleaning? (yes or no)" << endl;
-    cin >> ans;
-    if(ans == "yes"){
-        hotel.total_cost = hotel.total_cost + hotel.dry_cleaning_cost;
-    }
-    cout << "Do you want Spa? (yes or no)" << endl;
-    cin >> ans;
-    if(ans == "yes"){
-        hotel.total_cost = hotel.total_cost + hotel.spa_cost;
-    }
 
-    cout << "Total cost is: " <<hotel.total_cost << endl;
+}
 
-    //Cancel reservation
-    cout << "Do you want to cancel the reservation? (yes or no)" << endl;
-    cin >> ans;
-    if(ans == "yes"){
-        hotel.total_cost = 0;
-    }
+// function that take care of reservation
+void mon_reservation(int id, string name,int guest_num,int i,int *avalible_rooms,string monster_or_human){
 
-    //create a file to store data
-    if(ans == "no"){
-        fstream myfile;
-        if(i == 0){
-            myfile.open("data.txt",ios::out);
-            myfile << "id: "<< id<< "\n";
-            myfile << "name: "<< name<< "\n";
-            myfile <<"reserved_rooms: " << hotel.reserved_rooms<< "\n";
-            myfile <<"nights number: " << hotel.night_num<< "\n";
-            myfile <<"total cost: " << hotel.total_cost<< "\n";
-            myfile <<"======================================="<< "\n";
-            myfile.close();
+    MonsterHotel hotel;
+
+    // New reservation
+    hotel.reserved_rooms, hotel.night_num = hotel.ask_num_rooms_and_nights();
+    *avalible_rooms = *avalible_rooms - hotel.reserved_rooms;
+    if (*avalible_rooms >=0) {
+        //Extend reservation
+        hotel.extra_nights = hotel.ask_num_extra_nights();
+        hotel.night_num = hotel.night_num + hotel.extra_nights;
+        hotel.total_cost = (hotel.reserved_rooms) * (hotel.night_num) * (hotel.night_cost);
+
+        //Additional services
+        string ans;
+        cout << "Do you want Dry cleaning? (yes or no)" << endl;
+        cin >> ans;
+        if(ans == "yes"){
+            hotel.total_cost = hotel.total_cost + hotel.dry_cleaning_cost;
         }
-        else{
-            myfile.open("data.txt",ios::app);
-            myfile << id<< "," + name +"\n";
-            myfile <<"reserved_rooms: " << hotel.reserved_rooms<< "\n";
-            myfile <<"nights number: " << hotel.night_num<< "\n";
-            myfile <<"total cost: " << hotel.total_cost<< "\n";
-            myfile <<"======================================="<< "\n";
-            myfile.close();
+        cout << "Do you want Spa? (yes or no)" << endl;
+        cin >> ans;
+        if(ans == "yes"){
+            hotel.total_cost = hotel.total_cost + hotel.spa_cost;
         }
+
+        cout << "Total cost is: " <<hotel.total_cost << endl;
+
+        //Cancel reservation
+        cout << "Do you want to cancel the reservation? (yes or no)" << endl;
+        cin >> ans;
+        if(ans == "yes"){
+            hotel.total_cost = 0;
+            *avalible_rooms = *avalible_rooms + hotel.reserved_rooms;
+            hotel.reserved_rooms = 0;
+            hotel.night_num = 0;
+        }
+
+        //create a file to store data
+        save_to_txt(i,id,name,hotel.reserved_rooms,hotel.night_num,hotel.total_cost,hotel.room_num,*avalible_rooms,monster_or_human);
     }
 
-    return avalible_rooms;
+    else{
+        cout << "Sorry no monster rooms avalible" << endl;
+    }
+
 
 }
 
 
-
 int main() {
-    int guest_num = 2;
-    int avalible_rooms=20;
+    int guest_num = 5;
+    int avalible_hum_rooms=5;
+    int avalible_mon_rooms=15;
 
+    Guest guests_arr [guest_num];
 
     // looping through guests and take inputs
     for(int i=0; i < guest_num; i++){
-        Guest guest;
-        guest.ask_new_or_old();
+        guests_arr[i].ask_new_or_old();
 
-        if (guest.new_or_old == "new")
+        if (guests_arr[i].new_or_old == "new")
         {
-            guest.create_account();
-            guest.display_id();
+            guests_arr[i].create_account();
+            guests_arr[i].id = i+1;
+            guests_arr[i].display_id();
+
+            if(guests_arr[i].monster_or_human =="human") {
+                HumanHotel hotel_arr [guest_num];
+                hum_reservation(guests_arr[i].id,guests_arr[i].name,guest_num,i,&avalible_hum_rooms,guests_arr[i].monster_or_human);
+            }
+            else if (guests_arr[i].monster_or_human =="monster"){
+                MonsterHotel hotel_arr [guest_num];
+                mon_reservation(guests_arr[i].id,guests_arr[i].name,guest_num,i,&avalible_mon_rooms,guests_arr[i].monster_or_human);
+            }
+
         }
-        else if (guest.new_or_old == "old")
+        else if (guests_arr[i].new_or_old == "old")
         {
-            guest.ask_for_id();
+            int old_id = guests_arr[i].ask_for_id();
+            old_id = old_id - 1;
+
+            if(guests_arr[old_id].monster_or_human =="human") {
+                hum_reservation(guests_arr[old_id].id,guests_arr[old_id].name,guest_num,i,&avalible_hum_rooms,guests_arr[i].monster_or_human);
+            }
+            else if (guests_arr[old_id].monster_or_human =="monster"){
+                hum_reservation(guests_arr[old_id].id,guests_arr[old_id].name,guest_num,i,&avalible_mon_rooms,guests_arr[i].monster_or_human);
+            }
         }
 
-        avalible_rooms = reservation(guest.monster_or_human,guest.id,guest.name,guest_num,i);
-        if (avalible_rooms ==0){
+        if (avalible_hum_rooms ==0 & avalible_mon_rooms !=0){
+            if(i+1 < guest_num){
+                cout << "no more human rooms avalible" << endl;
+            }
+        }
+        else if (avalible_hum_rooms !=0 & avalible_mon_rooms ==0){
+            if(i+1 < guest_num){
+                cout << "no more monster rooms avalible" << endl;
+            }
+        }
+        else if (avalible_hum_rooms ==0 & avalible_mon_rooms ==0){
             cout << "Sorry no rooms avalible" << endl;
             break;
         }
