@@ -82,6 +82,24 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/eslam/CLionProjects/Task1/Guest.cpp">
+			<Option target="untitled1"/>
+		</Unit>
+		<Unit filename="/home/eslam/CLionProjects/Task1/Guest.h">
+			<Option target="untitled1"/>
+		</Unit>
+		<Unit filename="/home/eslam/CLionProjects/Task1/Hotel.cpp">
+			<Option target="untitled1"/>
+		</Unit>
+		<Unit filename="/home/eslam/CLionProjects/Task1/Hotel.h">
+			<Option target="untitled1"/>
+		</Unit>
+		<Unit filename="/home/eslam/CLionProjects/Task1/HumanHotel.h">
+			<Option target="untitled1"/>
+		</Unit>
+		<Unit filename="/home/eslam/CLionProjects/Task1/MonsterHotel.h">
+			<Option target="untitled1"/>
+		</Unit>
 		<Unit filename="/home/eslam/CLionProjects/Task1/main.cpp">
 			<Option target="untitled1"/>
 		</Unit>

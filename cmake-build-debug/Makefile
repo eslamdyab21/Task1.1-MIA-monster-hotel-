@@ -129,6 +129,54 @@ untitled1/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled1.dir/build.make CMakeFiles/untitled1.dir/build
 .PHONY : untitled1/fast
 
+Guest.o: Guest.cpp.o
+.PHONY : Guest.o
+
+# target to build an object file
+Guest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled1.dir/build.make CMakeFiles/untitled1.dir/Guest.cpp.o
+.PHONY : Guest.cpp.o
+
+Guest.i: Guest.cpp.i
+.PHONY : Guest.i
+
+# target to preprocess a source file
+Guest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled1.dir/build.make CMakeFiles/untitled1.dir/Guest.cpp.i
+.PHONY : Guest.cpp.i
+
+Guest.s: Guest.cpp.s
+.PHONY : Guest.s
+
+# target to generate assembly for a file
+Guest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled1.dir/build.make CMakeFiles/untitled1.dir/Guest.cpp.s
+.PHONY : Guest.cpp.s
+
+Hotel.o: Hotel.cpp.o
+.PHONY : Hotel.o
+
+# target to build an object file
+Hotel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled1.dir/build.make CMakeFiles/untitled1.dir/Hotel.cpp.o
+.PHONY : Hotel.cpp.o
+
+Hotel.i: Hotel.cpp.i
+.PHONY : Hotel.i
+
+# target to preprocess a source file
+Hotel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled1.dir/build.make CMakeFiles/untitled1.dir/Hotel.cpp.i
+.PHONY : Hotel.cpp.i
+
+Hotel.s: Hotel.cpp.s
+.PHONY : Hotel.s
+
+# target to generate assembly for a file
+Hotel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled1.dir/build.make CMakeFiles/untitled1.dir/Hotel.cpp.s
+.PHONY : Hotel.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -162,6 +210,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... untitled1"
+	@echo "... Guest.o"
+	@echo "... Guest.i"
+	@echo "... Guest.s"
+	@echo "... Hotel.o"
+	@echo "... Hotel.i"
+	@echo "... Hotel.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

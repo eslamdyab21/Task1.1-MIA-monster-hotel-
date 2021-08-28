@@ -1,1 +1,1 @@
-/usr/bin/c++ -g CMakeFiles/untitled1.dir/main.cpp.o -o untitled1 
+/usr/bin/c++ -g CMakeFiles/untitled1.dir/main.cpp.o CMakeFiles/untitled1.dir/Hotel.cpp.o CMakeFiles/untitled1.dir/Guest.cpp.o -o untitled1 

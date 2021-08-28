@@ -1,97 +1,16 @@
 #include <iostream>
 using namespace std;
 #include <fstream>
+#include "Guest.h"
+#include "HumanHotel.h"
+#include "MonsterHotel.h"
 
 
-class Hotel{
-public:
-    int room_num = 20;
-    int reserved_rooms;
-    int reserved_nights;
-    int night_cost;
-    int extra_nights;
-    int night_num;
-    int dry_cleaning_cost;
-    int spa_cost;
-    int total_cost;
-
-    int ask_num_rooms_and_nights(){
-        cout << "Dear guest, what's the number of rooms you want to reserve? "<< endl;
-        cin >> reserved_rooms;
-
-        cout << "Dear guest, what's the number of nights you plan to stay? "<< endl;
-        cin >> reserved_nights;
-
-        return reserved_rooms,reserved_nights;
-    }
-
-    int ask_num_extra_nights(){
-        cout << "Dear guest, what's the number of extra nights to reserve? "<< endl;
-        cin >> extra_nights;
-
-        return extra_nights;
-    }
-
-};
-
-class HumanHotel:public Hotel{
-public:
-    int room_num = 5;
-    int night_cost = 500.0;
-    int dry_cleaning_cost = 70.0;
-    int spa_cost = 100.0;
-    int total_cost;
-
-};
-
-
-class MonsterHotel:public Hotel{
-public:
-    int room_num = 15;
-    int night_cost = 200.0;
-    int dry_cleaning_cost = 30.0;
-    int spa_cost = 50.0;
-    int total_cost;
-
-};
-
-class Guest{
-public:
-    string monster_or_human;
-    string name;
-    string new_or_old;
-    int id;
-
-    void ask_new_or_old(){
-        cout << "Dear guest, are you a new or old guest? "<< endl;
-        cin >> new_or_old;
-    }
-
-
-    void create_account(){
-        cout << "Dear guest, are you a monster or human? "<< endl;
-        cin >> monster_or_human;
-
-        cout << "Dear guest, What's your name? "<< endl;
-        cin >> name;
-        //id = generate_id();
-    }
-
-
-    int ask_for_id(){
-        cout << "Dear guest, What's your id? "<< endl;
-        cin >> id;
-        return id;
-    }
-
-
-    void display_id(){
-        cout << "Dear guest, Your id is: " << id << endl;
-    }
-};
-
-
-//function that creates a file to store data
+// TODO function that creates a text file to store data (DONE)
+//  right now it has a problem with OLD Monsters (SOLVED)
+//      it gets the occupied rooms (room_num - avalible_rooms)
+//      and available rooms
+//      and it doesn't desplay the name of the guest
 void save_to_txt(int i,int id,string name,int reserved_rooms,int night_num,int total_cost,int room_num, int avalible_rooms,string monster_or_human){
     fstream myfile;
     if(i == 0){
@@ -123,7 +42,10 @@ void save_to_txt(int i,int id,string name,int reserved_rooms,int night_num,int t
 }
 
 
-// function that take care of reservation
+// TODO function that take care of reservation for Humans (DONE)
+//  keep track of Extend reservation
+//  keep track of Additional services
+//  keep track of Cancel reservation
 void hum_reservation(int id, string name,int guest_num,int i,int *avalible_rooms,string monster_or_human){
 
     HumanHotel hotel;
@@ -174,7 +96,10 @@ void hum_reservation(int id, string name,int guest_num,int i,int *avalible_rooms
 
 }
 
-// function that take care of reservation
+// TODO function that take care of reservation for Monster (DONE)
+//  keep track of Extend reservation
+//  keep track of Additional services
+//  keep track of Cancel reservation
 void mon_reservation(int id, string name,int guest_num,int i,int *avalible_rooms,string monster_or_human){
 
     MonsterHotel hotel;
@@ -230,12 +155,13 @@ int main() {
     int avalible_hum_rooms=5;
     int avalible_mon_rooms=15;
 
+    // create an object guest array with size of guests number
     Guest guests_arr [guest_num];
 
     // looping through guests and take inputs
     for(int i=0; i < guest_num; i++){
         guests_arr[i].ask_new_or_old();
-
+        // TODO handling new guests (DONE)
         if (guests_arr[i].new_or_old == "new")
         {
             guests_arr[i].create_account();
@@ -252,6 +178,7 @@ int main() {
             }
 
         }
+        // TODO handling old guests (DONE)
         else if (guests_arr[i].new_or_old == "old")
         {
             int old_id = guests_arr[i].ask_for_id();
@@ -260,8 +187,11 @@ int main() {
             if(guests_arr[old_id].monster_or_human =="human") {
                 hum_reservation(guests_arr[old_id].id,guests_arr[old_id].name,guest_num,i,&avalible_hum_rooms,guests_arr[i].monster_or_human);
             }
+
             else if (guests_arr[old_id].monster_or_human =="monster"){
-                hum_reservation(guests_arr[old_id].id,guests_arr[old_id].name,guest_num,i,&avalible_mon_rooms,guests_arr[i].monster_or_human);
+                // realted to OLD Monsters problem, mon_reservation was hum_reservation
+                // now it's running as excpected
+                mon_reservation(guests_arr[old_id].id,guests_arr[old_id].name,guest_num,i,&avalible_mon_rooms,guests_arr[i].monster_or_human);
             }
         }
 

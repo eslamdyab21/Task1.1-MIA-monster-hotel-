@@ -6,9 +6,27 @@
 
 #IncludeRegexTransform: 
 
+/home/eslam/CLionProjects/Task1/Guest.h
+
+/home/eslam/CLionProjects/Task1/Hotel.h
+
+/home/eslam/CLionProjects/Task1/HumanHotel.h
+Hotel.h
+/home/eslam/CLionProjects/Task1/Hotel.h
+
+/home/eslam/CLionProjects/Task1/MonsterHotel.h
+Hotel.h
+/home/eslam/CLionProjects/Task1/Hotel.h
+
 /home/eslam/CLionProjects/Task1/main.cpp
 iostream
 -
 fstream
 -
+Guest.h
+/home/eslam/CLionProjects/Task1/Guest.h
+HumanHotel.h
+/home/eslam/CLionProjects/Task1/HumanHotel.h
+MonsterHotel.h
+/home/eslam/CLionProjects/Task1/MonsterHotel.h
 

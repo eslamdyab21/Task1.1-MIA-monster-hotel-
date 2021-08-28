@@ -8,6 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/eslam/CLionProjects/Task1/Guest.cpp" "/home/eslam/CLionProjects/Task1/cmake-build-debug/CMakeFiles/untitled1.dir/Guest.cpp.o"
+  "/home/eslam/CLionProjects/Task1/Hotel.cpp" "/home/eslam/CLionProjects/Task1/cmake-build-debug/CMakeFiles/untitled1.dir/Hotel.cpp.o"
   "/home/eslam/CLionProjects/Task1/main.cpp" "/home/eslam/CLionProjects/Task1/cmake-build-debug/CMakeFiles/untitled1.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
